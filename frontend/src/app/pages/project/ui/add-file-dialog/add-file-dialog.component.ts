@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { DialogRef } from '@angular/cdk/dialog';
+import { Component, inject, signal } from '@angular/core';
 
 @Component({
   selector: 'app-add-file-dialog',
@@ -8,6 +9,7 @@ import { Component, signal } from '@angular/core';
 })
 export class AddFileDialogComponent {
   $isDragging = signal(false);
+  dialogRef = inject(DialogRef);
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();
@@ -19,18 +21,24 @@ export class AddFileDialogComponent {
     this.$isDragging.set(false);
   }
 
-  onUploadFiles(event: Event): void {
+  onUploadFile(event: Event): void {
     const input = event.target as HTMLInputElement;
+    let formData = new FormData();
+    if (input.files && input.files.length > 0) {
+      formData.append('file', input.files[0]);
+      this.dialogRef.close(formData)
+    }
   }
 
   onDrop(event: DragEvent): void {
     event.preventDefault();
     this.$isDragging.set(false);
 
-    const files = event.dataTransfer?.files;
-    // if (files && files.length > 0) {
-    //   this.filesDropped.emit(files); // Emit the dropped files
-    //   console.log('Files dropped:', files);
-    // }
+    const file = event.dataTransfer?.files[0];
+    if (file) {
+      let formData = new FormData();
+      formData.append('file', file);
+      this.dialogRef.close(formData)
+    }
   }
 }

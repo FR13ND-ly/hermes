@@ -2,12 +2,12 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    aspect-ratio: 15/16;
     border: 1px solid #ccc;
     padding: var(--space-lg);
     box-sizing: border-box;
     border-radius: var(--rounded-md);
     cursor: pointer;
+    user-select: none;
     &__id {
         margin-top: var(--space-xs);
         color: #555555;

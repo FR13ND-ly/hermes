@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'fileTitle'
+  name: 'shorten'
 })
-export class FileTitlePipe implements PipeTransform {
+export class ShortenPipe implements PipeTransform {
 
   transform(value: string, limit: number = 50, ellipsis: string = '...'): string {
     if (!value) return '';

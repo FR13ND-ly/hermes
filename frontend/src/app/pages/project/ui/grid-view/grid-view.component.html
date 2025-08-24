@@ -1,6 +1,6 @@
 
 <div class="files-container">
-    <add-file-item />
+    <add-file-item (uploadFile)="onUploadFile($event)"/>
     <add-folder-item />
     @for (file of files(); track file.id) {
         @if (file.is_folder) {

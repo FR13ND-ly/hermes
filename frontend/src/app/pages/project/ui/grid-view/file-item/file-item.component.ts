@@ -1,11 +1,11 @@
 import { Component, inject, input } from '@angular/core';
 import { FileModel } from '../../../../../core/models/file.model';
 import { FileStore } from '../../../store/file.store';
-import { FileTitlePipe } from '../../../../../core/pipes/file-title.pipe';
+import { ShortenPipe } from '../../../../../core/pipes/shorten.pipe';
 
 @Component({
   selector: 'file-item',
-  imports: [FileTitlePipe],
+  imports: [ShortenPipe],
   templateUrl: './file-item.component.html',
   styleUrl: './file-item.component.scss',
   providers: []

@@ -13,10 +13,11 @@ import { PathComponent } from '../../ui/path/path.component';
 import { PathStore } from '../../store/path.store';
 import { switchMap } from 'rxjs';
 import { FileModel } from '../../../../core/models/file.model';
+import { CdkObserveContent } from "@angular/cdk/observers";
 
 @Component({
   selector: 'app-files',
-  imports: [ViewSelectorComponent, SortSelectorComponent, SearchComponent, ListViewComponent, GridViewComponent, PathComponent, AsyncPipe],
+  imports: [ViewSelectorComponent, SortSelectorComponent, SearchComponent, ListViewComponent, GridViewComponent, PathComponent, AsyncPipe, CdkObserveContent],
   templateUrl: './files.component.html',
   styleUrl: './files.component.scss',
   providers: [PathStore]
@@ -50,8 +51,16 @@ export class FilesComponent {
     }));
   }
 
-  onUploadFiles(files: FileList) {
-    // Handle file upload logic here
+  onUploadFile(formData: any, path: any) {
+    let data = {
+      file: formData,
+      path: path.join('/'),
+      project_id: this.projectId,
+      is_folder: false
+    }
+    this.fileService.uploadFile(data).subscribe(() => {
+      this.reloadFiles();
+    });
   }
 
   onDeleteFiles(files: FileModel[]) {

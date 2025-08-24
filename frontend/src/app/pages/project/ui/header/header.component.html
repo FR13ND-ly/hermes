@@ -5,7 +5,8 @@
             <img src="images/logo-light.png" alt="Logo" />
         </a>
         <div class="project-name">
-            <h3>{{ projectName$ | async }}</h3>
+            <h3>{{ project()?.name }}</h3>
+            <p>{{ project()?.id }}</p>
         </div>
     </div>
     <div>
@@ -13,15 +14,15 @@
     </div>
 </section>
 <div class="navigation">
-    <a class="item" routerLink="/project/{{ projectId }}/" href="/project/{{ projectId }}/" routerLinkActive="active liquid" [routerLinkActiveOptions]="{ exact: true }">
+    <a class="item" routerLink="/project/{{ project()?.id }}/" href="/project/{{ project()?.id }}/" routerLinkActive="active liquid" [routerLinkActiveOptions]="{ exact: true }">
         <span class="material-symbols-outlined">dashboard_2</span>
         <span class="item__title">Overview</span>
     </a>
-    <a class="item" routerLink="/project/{{ projectId }}/files" href="/project/{{ projectId }}/files" routerLinkActive="active liquid">
+    <a class="item" routerLink="/project/{{ project()?.id }}/files" href="/project/{{ project()?.id }}/files" routerLinkActive="active liquid">
         <span class="material-symbols-outlined">files</span>
         <span class="item__title">Files</span>
     </a>
-    <a class="item" routerLink="/project/{{ projectId }}/settings" href="/project/{{ projectId }}/settings" routerLinkActive="active liquid">
+    <a class="item" routerLink="/project/{{ project()?.id }}/settings" href="/project/{{ project()?.id }}/settings" routerLinkActive="active liquid">
         <span class="material-symbols-outlined">settings</span>
         <span class="item__title">Settings</span>
     </a>

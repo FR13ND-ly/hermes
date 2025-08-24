@@ -12,5 +12,10 @@ import { AddFolderItemComponent } from './add-folder-item/add-folder-item.compon
   styleUrl: './grid-view.component.scss'
 })
 export class GridViewComponent {
+  uploadFile = output<any>();
   files = input<FileModel[]>();
+
+  onUploadFile(file: any) {
+    this.uploadFile.emit(file);
+  }
 }

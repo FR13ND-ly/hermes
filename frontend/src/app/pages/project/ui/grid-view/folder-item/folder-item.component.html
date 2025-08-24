@@ -1,9 +1,9 @@
-<article class="folder liquid-1" (dblclick)="onPathChange(folder()!.name)">
+<article class="folder liquid-1" (contextmenu)="onSelectFolder(); $event.preventDefault()" (dblclick)="onPathChange(folder()!.name)">
     <div class="folder__thumbnail">
         <span class="material-symbols-outlined">folder</span>
     </div>
     <div>
-        <b class="folder__title">{{ folder()!.name | fileTitle: 20  }}</b>
-        <p class="folder__id">{{ folder()!.id }}</p>
+        <b class="folder__title">{{ folder()!.name | shorten: 15  }}</b>
+        <p class="folder__id">{{ folder()!.id | shorten: 15 }}</p>
     </div>
 </article>

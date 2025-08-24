@@ -12,7 +12,7 @@
     @if (selectedView() === 'list') {
         <list-view [files]="files" (addFolder)="onAddFolder($event, path)"/>
     } @else {
-        <grid-view [files]="files"/>
+        <grid-view [files]="files" (uploadFile)="onUploadFile($event, path)"/>
     }
 }
 }

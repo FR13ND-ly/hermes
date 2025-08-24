@@ -54,14 +54,17 @@ pub async fn create_project(
 pub async fn get_project_by_id(
     State(pool): State<PgPool>,
     Path(id): Path<Uuid>,
-) -> Option<Json<Project>> {
+) -> Result<Json<Project>, StatusCode> {
     let project = sqlx::query_as::<_, Project>("SELECT * FROM projects WHERE id = $1")
         .bind(id)
         .fetch_optional(&pool)
         .await
         .unwrap();
 
-    project.map(Json)
+    match project {
+        Some(p) => Ok(Json(p)),
+        None => Err(StatusCode::NOT_FOUND),
+    }
 }
 
 

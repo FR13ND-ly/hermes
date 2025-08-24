@@ -23,9 +23,13 @@
 .project-name {
     text-wrap: nowrap;
     width: fit-content;
+    transform: translateY(-0.3rem);
     border-left: 2px solid var(--border-color);
     padding-left: var(--space-md);
     line-height: 1.25;
+    p {
+        font-size: .8rem;
+    }
 }
 
 .logo-wrapper {

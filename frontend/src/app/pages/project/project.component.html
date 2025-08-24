@@ -1,6 +1,6 @@
 <img class="background" src="/images/project-background.png" />
 <main>
-    <project-header />
+    <project-header [project]="project$ | async"/>
     <div class="project-content">
         <div class="router card liquid">
             <router-outlet />

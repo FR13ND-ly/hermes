@@ -7,10 +7,10 @@
     <h3 class="title">Upload Files</h3>
     <p class="description">Drag and drop your files here or click to select files</p>
 
-    <button class="upload-file-button" (click)="filesInput.click()">
+    <button class="upload-file-button" (click)="fileInput.click()">
         <span class="material-symbols-outlined">upload</span>
         <span class="button-text">Choose Files</span>
     </button>
 </div>
 
-<input type="file" id="fileInput" multiple #filesInput (change)="onUploadFiles($event)" style="display: none;">
+<input type="file" id="fileInput" #fileInput (change)="onUploadFile($event)" style="display: none;">

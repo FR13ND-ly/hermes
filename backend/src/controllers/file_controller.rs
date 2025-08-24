@@ -137,125 +137,97 @@ pub async fn get_files(
 }
 
 
+#[derive(Debug, serde::Deserialize)]
+pub struct UploadParams {
+    pub project_id: Uuid,
+    pub path: Option<String>,
+    pub is_folder: Option<bool>,
+}
+
 pub async fn upload_file(
     State(pool): State<PgPool>,
+    Query(params): Query<UploadParams>,
     mut multipart: Multipart,
-) -> Result<impl IntoResponse, (StatusCode, String)> {
-    let mut project_id: Option<Uuid> = None;
-    let mut upload_path: String = String::new();
-    let mut is_folder: bool = false;
-    let mut created_files: Vec<FileResponse> = Vec::new();
+) -> (StatusCode, Json<Vec<FileResponse>>) {
+    // Extract metadata from request params (no Option juggling inside)
+    let project_id = params.project_id;
+    let upload_path = params.path.unwrap_or_default();
+    let is_folder = params.is_folder.unwrap_or(false);
 
-    while let Some(field) = multipart.next_field().await.map_err(|e| (StatusCode::BAD_REQUEST, e.to_string()))? {
-        let field_name = field.name().unwrap_or("").to_string();
-        
-        match field_name.as_str() {
-            "project_id" => {
-                let project_id_str = field.text().await.map_err(|e| (StatusCode::BAD_REQUEST, e.to_string()))?;
-                project_id = Some(Uuid::parse_str(&project_id_str).map_err(|_| (StatusCode::BAD_REQUEST, "Invalid project_id format".to_string()))?);
-            },
-            "path" => {
-                upload_path = field.text().await.map_err(|e| (StatusCode::BAD_REQUEST, e.to_string()))?;
-                let project_id = project_id.ok_or((StatusCode::BAD_REQUEST, "project_id is required".to_string()))?;
-                let base_path = get_project_path(&pool, project_id).await.map_err(|_| (StatusCode::NOT_FOUND, "Project not found".to_string()))?;
-                
-                if !StdPath::new(&base_path).exists() {
-                    return Err((StatusCode::NOT_FOUND, "Project path does not exist".to_string()));
-                }
+    assert!(!is_folder, "Use the create_folder endpoint for folders.");
 
-                if !upload_path.is_empty() {
-                    let full_upload_path = format!("{}/{}", base_path, upload_path);
-                    if !StdPath::new(&full_upload_path).exists() {
-                        return Err((StatusCode::NOT_FOUND, format!("Upload path '{}' does not exist", upload_path)));
-                    }
-                }
-            },
-            "is_folder" => {
-                let is_folder_str = field.text().await.map_err(|e| (StatusCode::BAD_REQUEST, e.to_string()))?;
-                is_folder = is_folder_str.parse::<bool>().unwrap_or(false);
-            },
-            _ => {
-                if is_folder {
-                    return Err((StatusCode::BAD_REQUEST, "Use the create_folder endpoint for folders.".to_string()));
-                }
+    let base_path = get_project_path(&pool, project_id).await.expect("Project not found");
+    assert!(StdPath::new(&base_path).exists(), "Project path does not exist");
 
-                let project_id = project_id.ok_or((StatusCode::BAD_REQUEST, "project_id is required".to_string()))?;
-                
-                let base_path = get_project_path(&pool, project_id)
-                    .await
-                    .map_err(|_| (StatusCode::NOT_FOUND, "Project not found".to_string()))?;
-
-                let file_name = field.file_name().unwrap_or("unknown_file").to_string();
-                let data = field.bytes().await.map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
-                let file_size = data.len() as u64;
-
-                let file_type = StdPath::new(&file_name)
-                    .extension()
-                    .and_then(std::ffi::OsStr::to_str)
-                    .unwrap_or("unknown")
-                    .to_string();
-
-                let file_dir = if upload_path.is_empty() {
-                    base_path.clone()
-                } else {
-                    format!("{}/{}", base_path, upload_path)
-                };
-                
-                if !StdPath::new(&file_dir).exists() {
-                    return Err((StatusCode::NOT_FOUND, format!("Directory '{}' does not exist", upload_path)));
-                }
-                
-                let physical_file_path = format!("{}/{}", file_dir, file_name);
-
-                let db_path = if upload_path.is_empty() {
-                    file_name.clone()
-                } else {
-                    format!("{}/{}", upload_path, file_name)
-                };
-
-                fs::write(&physical_file_path, &data).await.map_err(|_| (StatusCode::INTERNAL_SERVER_ERROR, "Failed to write file".to_string()))?;
-
-                let new_file_id = Uuid::new_v4();
-                let now = Utc::now().naive_utc();
-
-                sqlx::query(
-                    "INSERT INTO files (id, project_id, name, path, created, last_modified, is_folder)
-                     VALUES ($1, $2, $3, $4, $5, $6, false)",
-                )
-                .bind(new_file_id)
-                .bind(project_id)
-                .bind(&file_name)
-                .bind(&db_path)
-                .bind(now)
-                .bind(now)
-                .execute(&pool)
-                .await
-                .map_err(|e| {
-                    println!("Failed to save file metadata. DB error: {:?}", e);
-                    (StatusCode::INTERNAL_SERVER_ERROR, "Failed to save file metadata".to_string())
-                })?;
-
-                let response = FileResponse {
-                    id: new_file_id.to_string(),
-                    project_id: project_id.to_string(),
-                    name: file_name,
-                    file_type,
-                    size: file_size,
-                    path: db_path,
-                    last_modified: Some(now),
-                    created: Some(now),
-                    is_folder: false,
-                };
-                created_files.push(response);
-            }
-        }
+    if !upload_path.is_empty() {
+        let full_upload_path = format!("{}/{}", base_path, upload_path);
+        assert!(StdPath::new(&full_upload_path).exists(), "Upload path does not exist");
     }
 
-    if created_files.is_empty() {
-        return Err((StatusCode::BAD_REQUEST, "No files were uploaded".to_string()));
+    let mut created_files = Vec::new();
+
+    // Process file fields directly
+    while let Some(field) = multipart.next_field().await.expect("Failed to read field") {
+        let file_name = field.file_name().unwrap_or("unknown_file").to_string();
+        let data = field.bytes().await.expect("Failed to read file data");
+        let file_size = data.len() as u64;
+
+        let file_type = StdPath::new(&file_name)
+            .extension()
+            .and_then(std::ffi::OsStr::to_str)
+            .unwrap_or("unknown")
+            .to_string();
+
+        let file_dir = if upload_path.is_empty() {
+            base_path.clone()
+        } else {
+            format!("{}/{}", base_path, upload_path)
+        };
+
+        assert!(StdPath::new(&file_dir).exists(), "Upload directory does not exist");
+
+        let physical_file_path = format!("{}/{}", file_dir, file_name);
+        let db_path = if upload_path.is_empty() {
+            file_name.clone()
+        } else {
+            format!("{}/{}", upload_path, file_name)
+        };
+
+        fs::write(&physical_file_path, &data).await.expect("Failed to write file");
+
+        let new_file_id = Uuid::new_v4();
+        let now = Utc::now().naive_utc();
+
+        sqlx::query(
+            "INSERT INTO files (id, project_id, name, path, created, last_modified, is_folder)
+             VALUES ($1, $2, $3, $4, $5, $6, false)",
+        )
+            .bind(new_file_id)
+            .bind(project_id)
+            .bind(&file_name)
+            .bind(&db_path)
+            .bind(now)
+            .bind(now)
+            .execute(&pool)
+            .await
+            .expect("Failed to save file metadata");
+
+        created_files.push(FileResponse {
+            id: new_file_id.to_string(),
+            project_id: project_id.to_string(),
+            name: file_name,
+            file_type,
+            size: file_size,
+            path: db_path,
+            last_modified: Some(now),
+            created: Some(now),
+            is_folder: false,
+        });
     }
 
-    Ok((StatusCode::CREATED, Json(created_files)))
+    assert!(!created_files.is_empty(), "No files were uploaded");
+
+    (StatusCode::CREATED, Json(created_files))
 }
 
 pub async fn create_folder(

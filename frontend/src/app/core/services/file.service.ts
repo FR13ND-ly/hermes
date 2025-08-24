@@ -28,11 +28,12 @@ export class FileService {
     return this.http.get(`${this.apiUrl}/${fileId}`);
   }
 
-  uploadFile(fileData: any) {
-    const formData = new FormData();
-    formData.append('file', fileData.file);
-    formData.append('projectId', fileData.projectId);
-    return this.http.post<FileModel>(this.apiUrl, formData);
+  uploadFile(data: any) {
+    let params = new HttpParams()
+      .set('project_id', data.project_id)
+      .set('path', data.path)
+      .set('is_folder', data.is_folder);
+    return this.http.post<FileModel>(this.apiUrl, data.file, { params });
   }
 
   updateFile(fileId: string, fileData: any) {

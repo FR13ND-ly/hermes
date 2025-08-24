@@ -1,0 +1,58 @@
+main {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    filter: blur(1px);
+    opacity: .3;
+}
+
+
+project-sidenav {
+    width: var(--sidenav-width);
+    flex-shrink: 0;
+}
+
+project-header {
+    width: 100%;
+    z-index: var(--zindex-header);
+}
+
+.project-content {
+    display: flex;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    transition: .2s;
+}
+
+.card {
+    height: calc(100vh - var(--header-height) - var(--space-4xl) - 3 * var(--space-md) - 2px);
+    border: 2px solid var(--border-color);
+    border-radius: var(--rounded-md);
+    overflow-y: auto;
+    
+    padding: var(--space-3xl);
+    box-sizing: border-box;
+
+}
+
+.router {
+    width: 100%;
+}
+
+
+file-details {
+    width: 30rem;
+    flex-shrink: 0;
+    padding: var(--space-2xl)!important;
+}

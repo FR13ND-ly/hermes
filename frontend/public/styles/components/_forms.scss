@@ -1,0 +1,26 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+  width: 100%;
+}
+
+.form-section {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 30% auto;
+  align-items: flex-start;
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding-top: var(--space-sm);
+    p {
+      text-wrap: pretty;
+    }
+  }
+  .input {
+    width: 100%;
+  }
+}

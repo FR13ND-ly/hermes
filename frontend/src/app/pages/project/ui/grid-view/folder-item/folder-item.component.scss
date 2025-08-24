@@ -1,0 +1,40 @@
+.folder {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    aspect-ratio: 15/16;
+    border: 1px solid #ccc;
+    padding: var(--space-lg);
+    box-sizing: border-box;
+    border-radius: var(--rounded-md);
+    cursor: pointer;
+    &__id {
+        margin-top: var(--space-xs);
+        color: #555555;
+    }
+    &__thumbnail {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10rem;
+        margin-bottom: var(--space-md);
+        font-size: 2rem;
+        background-color: #f5f5f5;
+        border-radius: var(--rounded-md);
+        .material-symbols-outlined {
+            font-size: 5rem;
+            font-weight: bold;
+        }
+    }
+    &__type {
+        border-top: 1px solid var(--border-color);
+        padding-top: .8rem;
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        font-size: 0.9rem;
+        color: #2e2e2e;
+        margin-top: var(--space-xs);
+    }
+}

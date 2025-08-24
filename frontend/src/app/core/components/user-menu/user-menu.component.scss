@@ -1,0 +1,53 @@
+.user-menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--rounded-full);
+    color: var(--mat-sys-on-surface);
+    border: none;
+    cursor: pointer;
+    background-color: #fff;
+    transition: background-color 0.2s, color 0.2s;
+    anchor-name: --menu-btn;
+    .material-symbols-outlined {
+        font-size: 3.6rem;
+        color: #575757;
+        transition: transform 0.2s;
+    }
+}
+
+.menu {
+    position: absolute;
+    anchor-default: --menu-btn;
+    position-area: bottom left;
+    right: -3rem;
+    top: .5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    // padding: var(--space-md);
+    &:popover-open {
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--rounded-sm);
+        overflow: hidden;
+    }
+    .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem 1rem;
+        gap: var(--space-xs);
+        padding: .8rem 1rem;
+        padding-right: var(--space-3xl);
+        border-bottom: 1px solid var(--border-color);
+        .material-symbols-outlined {
+            font-size: 1.5rem;
+        }
+        &:hover {
+            background: darken(#fff, 5%);
+        }
+        &:last-of-type {
+            border-bottom: none;
+        }
+    }
+}

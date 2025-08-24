@@ -1,0 +1,33 @@
+:host {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.direction-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: var(--space-xs);
+    border-radius: var(--rounded-full);
+    margin-left: var(--space-xl);
+    &:hover {
+        background-color: #f1f1f1;
+    }
+}
+
+
+.type-selector {
+    height: fit-content;
+    padding: var(--space-sm);
+    border: 1px solid var(--border-color);
+    border-radius: var(--rounded-sm);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1rem;
+    padding-right: var(--space-2xl);
+}

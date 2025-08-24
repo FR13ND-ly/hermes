@@ -1,0 +1,21 @@
+<a class="logo-wrapper" routerLink="/" href="/">
+    <img src="images/logo-light.png" alt="Logo" />
+</a>
+<div class="sidenav">
+    <a class="create-project-button liquid" routerLink="/create-project" href="create-project" >
+        <span class="material-symbols-outlined">add</span>
+        <span class="button__title">Create Project</span>
+    </a>
+    <a class="item" routerLink="/" href="/" routerLinkActive="active liquid" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="material-symbols-outlined">dashboard</span>
+        <span class="item__title">Dashboard</span>
+    </a>
+    <a class="item" routerLink="/projects" href="/projects" routerLinkActive="active liquid">
+        <span class="material-symbols-outlined">workspaces</span>
+        <span class="item__title">Projects</span>
+    </a>
+    <a class="item" routerLink="/settings" href="/settings" routerLinkActive="active liquid">
+        <span class="material-symbols-outlined">settings</span>
+        <span class="item__title">Settings</span>
+    </a>
+</div>

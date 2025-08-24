@@ -1,0 +1,18 @@
+<a class="logo-wrapper" routerLink="/" href="/">
+    <img src="images/logo-light.png" alt="Logo" />
+</a>
+<div class="sidenav">
+    <h5 class="project-name">{{ projectName$ | async }}</h5>
+    <a class="item" routerLink="/project/{{ projectId }}/" href="/project/{{ projectId }}/" routerLinkActive="active liquid" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="material-symbols-outlined">dashboard_2</span>
+        <span class="item__title">Overview</span>
+    </a>
+    <a class="item" routerLink="/project/{{ projectId }}/files" href="/project/{{ projectId }}/files" routerLinkActive="active liquid">
+        <span class="material-symbols-outlined">files</span>
+        <span class="item__title">Files</span>
+    </a>
+    <a class="item" routerLink="/project/{{ projectId }}/settings" href="/project/{{ projectId }}/settings" routerLinkActive="active liquid">
+        <span class="material-symbols-outlined">settings</span>
+        <span class="item__title">Settings</span>
+    </a>
+</div>

@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:700|Poppins:400");
+
+body {
+  font-family: "Poppins";
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Raleway";
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+html {
+  font-size: 100%;
+}
+
+h1 {
+  font-size: 4.21rem;
+}
+
+h2 {
+  font-size: 3.158rem;
+}
+
+h3 {
+  font-size: 2.369rem;
+}
+
+h4 {
+  font-size: 1.777rem;
+}
+
+h5 {
+  font-size: 1.333rem;
+}
+
+small {
+  font-size: 0.75rem;
+}
+
+p {
+  text-wrap: pretty;
+  line-height: 1.4;
+}
+
+b {
+  font-weight: bold;
+}

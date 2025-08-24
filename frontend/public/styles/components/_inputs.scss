@@ -1,0 +1,15 @@
+.input {
+  width: 300px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid var(--primary-200);
+  border-radius: 5px;
+  outline: none;
+  background-color: var(--background-100);
+  transition: border-color 0.3s;
+  color: var(--text-950);
+  box-sizing: border-box;
+  &:focus {
+    border-color: var(--primary-300);
+  }
+}

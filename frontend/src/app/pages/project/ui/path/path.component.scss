@@ -1,0 +1,36 @@
+.path-container {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.home {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: .1s;
+    font-variation-settings: 'FILL' 0;
+    &:hover {
+        font-variation-settings: 'FILL' 1;
+    }
+}
+
+.path {
+    display: flex;
+    align-items: center;
+}
+
+.path-segment {
+    white-space: nowrap;
+    margin-top: 1px;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.path-separator {
+    margin: .3rem var(--space-xxs) 0;
+}

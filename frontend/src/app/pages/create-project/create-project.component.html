@@ -1,0 +1,22 @@
+<img class="background" src="/images/create-project-background.png" />
+<a class="logo-wrapper" routerLink="/" href="/">
+    <img src="images/logo-light.png" alt="Logo" />
+</a>
+<div class="return-button">
+    <a routerLink="/" href="/">
+        <span class="material-symbols-outlined">arrow_back</span>
+    </a>
+
+</div>
+<div class="content">
+    <div class="create-project-container">
+        <h1 class="title">Let's start with a name<br> for your project </h1>
+        <form class="create-project-form" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+            <input id="project-name" type="text" placeholder="Enter project name" formControlName="name" required />
+            <button type="submit" class="submit-button">
+                <span class="material-symbols-outlined">add</span>
+                <span class="button-text">Create Project</span>
+            </button>
+        </form>
+    </div>
+</div>

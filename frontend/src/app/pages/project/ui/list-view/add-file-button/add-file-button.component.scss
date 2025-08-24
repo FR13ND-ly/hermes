@@ -1,0 +1,17 @@
+:host {
+    display: contents;
+}
+
+.add-file-text {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    border-bottom: 1px solid var(--border-color);
+    padding-block: var(--space-md);
+    cursor: pointer;
+    padding-left: var(--space-md);
+}
+
+td:hover {
+    background-color: #f0f0f0;
+}

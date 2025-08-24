@@ -1,0 +1,22 @@
+:host {
+    display: contents;
+}
+
+.file-name {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding-left: var(--space-md);
+}
+
+tr {
+    cursor: pointer;
+    td {
+        vertical-align: middle;
+        padding-block: var(--space-lg);
+        border-bottom: 1px solid var(--border-color);
+    }
+    &:hover td {
+        background-color: #f0f0f0;
+    }
+}

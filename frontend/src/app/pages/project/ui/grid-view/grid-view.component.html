@@ -1,0 +1,12 @@
+
+<div class="files-container">
+    <add-file-item />
+    <add-folder-item />
+    @for (file of files(); track file.id) {
+        @if (file.is_folder) {
+            <folder-item [folder]="file" />
+        } @else {
+            <file-item [file]="file" />
+        }
+    }
+</div>

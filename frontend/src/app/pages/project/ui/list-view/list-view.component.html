@@ -1,0 +1,22 @@
+
+<table class="files-container">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Path</th>
+            <th>Created</th>
+            <th>Size</th>
+        </tr>
+    </thead>
+    <tbody>
+        <add-file-button />
+        <add-folder-button (addFolder)="onAddFolder($event)"/>
+        @for (file of files(); track file.id) {
+            @if (file.is_folder) {
+                <folder-item [folder]="file" />
+            } @else {
+                <file-item [file]="file" />
+        }
+    }
+</tbody>
+</table>

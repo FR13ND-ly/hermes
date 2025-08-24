@@ -1,0 +1,46 @@
+$color: var(--primary-300);
+
+.button {
+  background-color: $color;
+  outline: 0;
+  border: 0;
+  padding: 0.75rem 1rem;
+  font-weight: bold;
+  width: fit-content;
+  color: var(--text-950);
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: var(--rounded-sm);
+  transition: background-color 0.1s cubic-bezier(0, 0, 0.2, 1);
+  &:hover {
+    background-color: var(--primary-400);
+  }
+  &:active {
+    background-color: var(--primary-500);
+  }
+  &--accent {
+    @extend .button;
+    background-color: var(--accent-400);
+    &:hover {
+      background-color: var(--accent-500);
+    }
+    &:active {
+      background-color: var(--accent-600);
+    }
+  }
+  &--icon {
+    @extend .button;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: transparent;
+    padding: 0.5rem;
+    color: var(--text-600);
+    &:hover {
+      background-color: var(--primary-100);
+    }
+    &:active {
+      background-color: var(--primary-200);
+    }
+  }
+}

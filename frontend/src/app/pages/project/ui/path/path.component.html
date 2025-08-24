@@ -1,0 +1,11 @@
+@if (pathStore.currentPath$ | async; as currentPath) {
+    <div class="path-container">
+        <div class="material-symbols-outlined home" (click)="onPathSegmentClick(currentPath, -1)">home</div>
+        @for (pathSegment of pathStore.currentPath$ | async; track $index) {
+            <div class="path" (click)="onPathSegmentClick(currentPath, $index)">
+                <span class="path-separator">\</span>
+            <span class="path-segment">{{ pathSegment }}</span>
+        </div>
+    }
+</div>
+}

@@ -1,0 +1,25 @@
+.files-container {
+    // display: flex;
+    // flex-direction: column;
+    width: 100%;
+    margin-top: var(--space-lg);
+    text-align: left;
+    td {
+        border-bottom: 1px solid var(--border-color);
+        &:first-child {
+            border-top: 1px solid var(--border-color);
+        }
+        &:hover td {
+            background-color: #f0f0f0;
+        }
+    }
+}
+
+th {
+    padding-bottom: var(--space-md);
+    font-weight: bold;
+}
+
+tbody {
+    border-top: 1px solid #000
+}

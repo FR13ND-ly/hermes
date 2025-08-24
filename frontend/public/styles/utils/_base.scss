@@ -1,0 +1,96 @@
+html,
+body {
+    min-height: 100%;
+    color-scheme: light;
+}
+body {
+    background-color: var(--background);
+    color: var(--text);
+}
+
+:any-link {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.hidden {
+    display: none;
+}
+
+::selection {
+    // color: var(--text-50);
+    // background: var(--primary-500);
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+    min-height: 100px;
+    transition: 0.2s;
+    &:hover {
+        opacity: 100%;
+        background-color: #bcc4c4;
+    }
+    &:active {
+        background-color: #a7a8a8;
+    }
+}
+
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.cdk-dialog-container {
+    outline: none;
+}
+
+/* src/styles.css */
+
+/* Define the animation for the NEW view entering */
+// ::view-transition-new(root) {
+//   /*
+//    * Prevents the new view from blending with the old one during the animation.
+//    * A 'normal' mix-blend-mode is the default. 'plus-lighter' can also be used
+//    * for interesting cross-fade effects. 'normal' is best for slide effects.
+//   */
+//   mix-blend-mode: normal;
+//   animation: slide-from-right 300ms ease-in-out;
+// }
+
+/* Define the animation for the OLD view leaving */
+// ::view-transition-old(root) {
+//   mix-blend-mode: normal;
+//   animation: slide-to-left 300ms ease-in-out;
+// }
+
+
+// /* Keyframes for the slide animation */
+// @keyframes slide-from-right {
+//   from {
+//     transform: translateX(30px);
+//     opacity: 0;
+//   }
+// }
+
+// @keyframes slide-to-left {
+//   to {
+//     transform: translateX(-30px);
+//     opacity: 0;
+//   }
+// }

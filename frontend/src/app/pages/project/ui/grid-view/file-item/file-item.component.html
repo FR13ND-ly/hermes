@@ -1,0 +1,9 @@
+<article class="file liquid-1" (dblclick)="onSelectFile()">
+    <div class="file__thumbnail">
+        <img src="https://st.depositphotos.com/1069290/3898/v/450/depositphotos_38980341-stock-illustration-abstract-square-spiral-black-and.jpg" alt="{{ file()?.name }}" />
+    </div>
+    <div>
+        <b class="file__title">{{ file()!.name | fileTitle: 20  }}</b>
+        <p class="file__id">{{ file()!.id }}</p>
+    </div>
+</article>

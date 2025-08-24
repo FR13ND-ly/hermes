@@ -1,0 +1,10 @@
+<div class="section-header">
+    <h2>Recent Projects</h2>
+</div>
+@if (projects$ | async; as projects) {
+    <div class="projects-list">
+        @for (project of projects; track project.id) {
+        <project-item [project]="project" />
+        }
+    </div>
+}

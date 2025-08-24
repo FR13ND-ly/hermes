@@ -1,0 +1,24 @@
+<button class="close" (click)="fileStore.resetFileDetails()">
+    <span class="material-symbols-outlined">close</span>
+</button>
+@if (fileDetails$ | async; as fileDetails) {
+    <!-- <img [src]="fileDetails.thumbnailUrl" alt="File Thumbnail"> -->
+    <img class="thumbnail" src="https://st.depositphotos.com/1069290/3898/v/450/depositphotos_38980341-stock-illustration-abstract-square-spiral-black-and.jpg" alt="{{ fileDetails.name }}" />
+    <h3 class="name">{{ fileDetails.name }}</h3>
+    <p class="path">{{ fileDetails.path }}</p>
+
+    <p class="created">Created: {{ fileDetails.created | date }}</p>
+    <p class="size">Size: {{ fileDetails.size }}</p>
+    <p class="id">ID: {{ fileDetails.id }}</p>
+    <p class="type">Type: {{ fileDetails.isFolder ? 'Folder' : 'File' }}</p>
+    <div class="actions">
+        <button class="btn liquid" (click)="onEditFile(fileDetails.id)">
+            <span class="material-symbols-outlined">edit</span>
+            <span class="btn-text">Edit</span>
+        </button>
+        <button class="btn liquid" (click)="onDeleteFile(fileDetails.id)">
+            <span class="material-symbols-outlined">delete</span>
+            <span class="btn-text">Delete</span>
+        </button>
+    </div>
+}

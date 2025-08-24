@@ -1,0 +1,12 @@
+<div class="direction-selector" (click)="onToggleDirection()">
+    @if (direction() === 'asc') {
+    <span class="material-symbols-outlined" >arrow_upward</span>
+    } @else {
+    <span class="material-symbols-outlined">arrow_downward</span>
+    }
+</div>
+<select class="type-selector" [selectedIndex]="selectedIndex()" (change)="onSelectType($event.target)">
+    <option value="name">Name</option>
+    <option value="date">Date</option>
+    <option value="size">Size</option>
+</select>

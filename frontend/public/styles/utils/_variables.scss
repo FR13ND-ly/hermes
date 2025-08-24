@@ -1,0 +1,43 @@
+:root {
+    --rounded-sm: 0.5rem;
+    --rounded-md: 1rem;
+    --rounded-lg: 2rem;
+    --rounded-xl: 3rem;
+    --rounded-2xl: 4rem;
+    --rounded-3xl: 5rem;
+    --rounded-full: 50vmax;
+
+    --sidenav-width: 18rem;
+
+    --space-unit: 1rem;
+    --space-xxs: calc(0.25 * var(--space-unit));
+    --space-xs: calc(0.5 * var(--space-unit));
+    --space-sm: calc(0.75 * var(--space-unit));
+    --space-md: calc(1 * var(--space-unit));
+    --space-lg: calc(1.25 * var(--space-unit));
+    --space-xl: calc(1.5 * var(--space-unit));
+    --space-2xl: calc(2 * var(--space-unit));
+    --space-3xl: calc(2.5 * var(--space-unit));
+    --space-4xl: calc(3 * var(--space-unit));
+    --space-5xl: calc(3.5 * var(--space-unit));
+    --space-6xl: calc(4 * var(--space-unit));
+
+    --header-height: 80px;
+    --sidebar-width: 18rem;
+
+    --zindex-header: 1000;
+    --zindex-search: 1010;
+    --zindex-dropdown: 1000;
+    --zindex-popover: 1060;
+    --zindex-tooltip: 1070;
+    --zindex-navbar-fixed: 1030;
+    --zindex-modal-background: 1040;
+    --zindex-modal: 1050;
+    --lat-spacing: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+    :root {
+        --lat-spacing: 0.7rem;
+    }
+}

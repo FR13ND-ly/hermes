@@ -1,0 +1,12 @@
+<img class="background" src="/images/project-background.png" />
+<main>
+    <project-header />
+    <div class="project-content">
+        <div class="router card liquid">
+            <router-outlet />
+        </div>
+        @if ((fileStore.fileDetails$ | async)?.id != '') {
+            <file-details class="card liquid"/>
+        }
+    </div>
+</main>

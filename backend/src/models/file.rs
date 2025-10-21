@@ -32,4 +32,6 @@ pub struct FileResponse {
     pub last_modified: Option<chrono::NaiveDateTime>,
     pub created: Option<chrono::NaiveDateTime>,
     pub is_folder: bool,
+    pub url: String,
+    pub preview_url: String,
 }

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FileStore } from '../../store/file.store';
 import { AsyncPipe, DatePipe } from '@angular/common';
+import { FileService } from '../../../../core/services/file.service';
 
 @Component({
   selector: 'file-details',
@@ -10,7 +11,7 @@ import { AsyncPipe, DatePipe } from '@angular/common';
 })
 export class FileDetailsComponent {
   fileStore = inject(FileStore);
-
+  fileService = inject(FileService);
   fileDetails$ = this.fileStore.fileDetails$;
 
   onEditFile(fileId: string) {
@@ -18,6 +19,6 @@ export class FileDetailsComponent {
   }
 
   onDeleteFile(fileId: string) {
-    // this.fileStore.deleteFile(fileId);
+    this.fileService.deleteFile(fileId).subscribe(console.log)
   }
 }

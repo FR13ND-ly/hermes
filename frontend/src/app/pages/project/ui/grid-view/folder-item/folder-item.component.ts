@@ -21,6 +21,7 @@ export class FolderItemComponent {
       this.fileStore.updateFileDetails(folder);
     }
   }
+  
   onPathChange(newPath: string) {
     this.pathStore.addPathSegment(newPath);
   }

@@ -16,7 +16,14 @@ tr {
         padding-block: var(--space-lg);
         border-bottom: 1px solid var(--border-color);
     }
+    span {
+        font-variation-settings: 'FILL' 0;
+        transition: .2s;
+    }
     &:hover td {
         background-color: #f0f0f0;
+        span {
+            font-variation-settings: 'FILL' 1;
+        }
     }
 }

@@ -1,4 +1,4 @@
-<tr (dblclick)="onPathChange(folder()!.name)">
+<tr (contextmenu)="onSelectFolder(); $event.preventDefault()" (dblclick)="onPathChange(folder()!.name)">
     <td>
         <div class="file-name">
             @if (folder()!.is_folder) {
